@@ -1,0 +1,80 @@
+<!doctype html>
+<title>Recommended Stories</title>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script src="{{ url_for('static', filename='d3.layout.cloud.js') }}"></script>
+
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+<div class=page>
+  {% for table in tables %}
+    <h2> {{labels[loop.index+1]}} stories user: {{labels[0]}} --> url: <a href="http://www.fanfiction.net/u/{{labels[0]}}"> User {{labels[0]}} profile </a>
+    <h2>{{titles[loop.index]}}</h2>
+        
+    {{ table|safe }}
+  {% endfor %}
+</div>
+    
+    
+<!--<h1>List: {{labels[1]}}</h1> -->
+ 
+<!-- <style>
+.venntooltip {
+  position: absolute;
+  text-align: center;
+  width: 128px;
+  height: 16px;
+  background: #333;
+  color: #ddd;
+  padding: 2px;
+  border: 0px;
+  border-radius: 8px;
+  opacity: 0;
+}
+</style> -->
+
+<!-- <script>
+    
+    var words = {{ labels[1]|tojson }};
+
+    var frequency_list = [{"text":words[0],"size":40},{"text":words[1],"size":15},{"text":"forces","size":10},{"text":words[2],"size":15},{"text":"movement","size":10},{"text":"relation","size":5},{"text":"things","size":10},{"text":"force","size":5},{"text":"ad","size":5},{"text":words[3],"size":85},{"text":"living","size":5},{"text":"nonliving","size":5},{"text":"laws","size":15},{"text":words[4],"size":45},{"text":words[5],"size":30},{"text":"define","size":5},{"text":"constraints","size":5},{"text":"universe","size":10},{"text":words[6],"size":120},{"text":"describing","size":5},{"text":words[7],"size":90},{"text":"physics-the","size":5},{"text":"world","size":10},{"text":"works","size":10},{"text":words[8],"size":70},{"text":words[9],"size":30},{"text":"studies","size":5},{"text":words[10],"size":45},{"text":words[11],"size":40},{"text":words[12],"size":30},{"text":words[13],"size":25},{"text":words[14],"size":40},{"text":"google","size":10},{"text":"defintions","size":5},{"text":"two","size":15},{"text":"grouped","size":15},{"text":words[15],"size":15},{"text":words[16],"size":15},{"text":words[17],"size":15},{"text":words[18],"size":15},{"text":words[19],"size":20},{"text":words[20],"size":15},{"text":words[21],"size":15},{"text":words[22],"size":15},{"text":words[23],"size":15},{"text":words[24],"size":15},{"text":"interaction","size":15},{"text":words[25],"size":25},{"text":"answers","size":5},{"text":words[26],"size":15},{"text":"objects","size":5},{"text":"treats","size":10},{"text":"acting","size":5},{"text":"department","size":5},{"text":"gravitation","size":5},{"text":"heat","size":10},{"text":words[27],"size":10},{"text":"magnetism","size":10},{"text":"modify","size":5},{"text":words[28],"size":10},{"text":"bodies","size":5},{"text":"philosophy","size":5},{"text":"brainyquote","size":5},{"text":"words","size":5},{"text":"ph","size":5},{"text":"html","size":5},{"text":"lrl","size":5},{"text":"zgzmeylfwuy","size":5},{"text":"subject","size":5},{"text":"distinguished","size":5},{"text":words[36],"size":5},{"text":"biology","size":5},{"text":"includes","size":5},{"text":"radiation","size":5},{"text":"sound","size":5},{"text":"structure","size":5},{"text":"atoms","size":5},{"text":words[29],"size":10},{"text":"atomic","size":10},{"text":words[30],"size":10},{"text":words[31],"size":10},{"text":"solid-state","size":10},{"text":words[32],"size":10},{"text":"plasma","size":10},{"text":"deals","size":5},{"text":"merriam-webster","size":5},{"text":words[33],"size":10},{"text":"analysis","size":5},{"text":"conducted","size":5},{"text":"order","size":5},{"text":"understand","size":5},{"text":"behaves","size":5},{"text":"en","size":5},{"text":"wikipedia","size":5},{"text":"wiki","size":5},{"text":"physics-","size":5},{"text":"physical","size":5},{"text":"behaviour","size":5},{"text":"collinsdictionary","size":5},{"text":"english","size":5},{"text":words[34],"size":35},{"text":words[33],"size":35},{"text":"wheels","size":5},{"text":"revelations","size":5},{"text":"minute","size":5},{"text":words[36],"size":20},{"text":"torque","size":5},{"text":"wheel","size":5},{"text":"rotations","size":5},{"text":"resistance","size":5},{"text":"momentum","size":5},{"text":words[35],"size":10},{"text":"direction","size":10},{"text":"car","size":5},{"text":"add","size":5},{"text":"traveled","size":5},{"text":"weight","size":5},{"text":"electrical","size":5},{"text":"power","size":5}];
+
+
+    var color = d3.scale.linear()
+            .domain([0,1,2,3,4,5,6,10,15,20,100])
+            .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
+
+    d3.layout.cloud().size([800, 300])
+            .words(frequency_list)
+            .rotate(0)
+            .fontSize(function(d) { return d.size; })
+            .on("end", draw)
+            .start();
+
+    function draw(words) {
+        d3.select("body").append("svg")
+                .attr("width", 850)
+                .attr("height", 350)
+                .attr("class", "wordcloud")
+                .append("g")
+                // without the transform, words words would get cutoff to the left and top, they would
+                // appear outside of the SVG area
+                .attr("transform", "translate(320,200)")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function(d) { return d.size + "px"; })
+                .style("fill", function(d, i) { return color(i); })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function(d) { return d.text; });
+    }
+</script>
+ -->
+
+
+</html>
+
+

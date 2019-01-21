@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Fanfiction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<h1> Fanfiction </h1>
+<h2> Implicit recommender system stories</h2>
+    <h3>Enter user id</h3>
+    <form action="." method="POST">
+        <input type="text" name="text">
+        <input type="submit" name="my-form" value="Send">
+    </form>
+
+
+<h3> Example user ids: 8139, 8334, 17420, 67319, 1277221 <h3>
+
+ <img src="{{url_for('static', filename='8139.jpg')}}" />
+ <img src="{{url_for('static', filename='8334.jpg')}}" />
+ <img src="{{url_for('static', filename='17420.jpg')}}" />
+ <img src="{{url_for('static', filename='67319.jpg')}}" />
+ <img src="{{url_for('static', filename='1277221.jpg')}}" />
+
+
+</body>
+</html>
